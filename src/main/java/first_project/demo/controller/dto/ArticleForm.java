@@ -1,5 +1,7 @@
 package first_project.demo.controller.dto;
 
+import first_project.demo.entity.Article;
+
 public class ArticleForm {
     private String title;
     private String content;
@@ -15,5 +17,9 @@ public class ArticleForm {
                 "title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 '}';
+    }
+
+    public Article toEntity() {
+        return new Article(null, title, content);
     }
 }
