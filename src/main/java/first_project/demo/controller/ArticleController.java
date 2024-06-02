@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 @Controller
 @Slf4j //로깅을 위한 어노테이션!
 public class ArticleController {
@@ -48,5 +52,19 @@ public class ArticleController {
         model.addAttribute("article", articleEneity);
         //3 - 보여줄 페이지를 설정
         return "articles/show";
+    }
+
+    @GetMapping("/articles")
+    public String index(Model model) {
+        //1 - 모든 Articles을 가져온다.
+        //ArrayList의 상위 타입인 List로 받기(ArrayList로 받아도 상관 없음.) - Java.utill라이브러리 상속 관계 공부하기
+        //<interface>Iterable <- <interface>Collection <- <interface>List <- <class>ArrayList
+        List<Article> articleEntityList = articleRepository.findAll();
+
+        //2 - 가져온 Article 묶음을 View로 전달한다.
+        model.addAttribute("articleList", articleEntityList);
+
+        //3 - 뷰 페이지를 설계한다.
+        return "articles/index"; //articles/index.mustache파일안에 View페이지가 설정되도록 작성
     }
 }
