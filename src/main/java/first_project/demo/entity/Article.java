@@ -11,6 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Getter
 public class Article {
     @Id //대표값을 지정! Like a 주민번호
     @GeneratedValue // 1 2 3, ..., key를 자동 생성 어노테이션!

@@ -13,10 +13,12 @@
     <!-- articleList가 여러 데이터를 가진 경우에 for문처럼 데이터들이 반복됨! -->
         <tr>
             <th>{{id}}</th>
-            <td>{{title}}</td>
+            <td><a href="/articles/{{id}}">{{title}}</a></td>
             <td>{{content}}</td>
         </tr>
     {{/articleList}}
     </tbody>
 </table>
+
+<a href="/articles/new">New Article</a>
 {{>layouts/footer}}

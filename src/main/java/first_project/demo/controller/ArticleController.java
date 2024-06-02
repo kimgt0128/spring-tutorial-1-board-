@@ -40,7 +40,9 @@ public class ArticleController {
         Article saved = articleRepository.save(article);
         //System.out.println(saved.toString()); -> 로깅으로 대체
         log.info(saved.toString());
-        return "";
+
+        //redirect추가하기 -> 작성한 게시글 id 페이지로 이동
+        return "redirect:/articles/" + saved.getId();
     }
     @GetMapping("/articles/{id}")
     public String show(@PathVariable Long id, Model model) {
