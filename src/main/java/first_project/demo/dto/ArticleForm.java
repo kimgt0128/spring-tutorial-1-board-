@@ -1,4 +1,4 @@
-package first_project.demo.controller.dto;
+package first_project.demo.dto;
 
 import first_project.demo.entity.Article;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,6 @@ import lombok.ToString;
 public class ArticleForm {
     private String title;
     private String content;
-
-
-
     public Article toEntity() {
         return new Article(null, title, content);
     }

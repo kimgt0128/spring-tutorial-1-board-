@@ -1,6 +1,6 @@
 package first_project.demo.controller;
 
-import first_project.demo.controller.dto.ArticleForm;
+import first_project.demo.dto.ArticleForm;
 import first_project.demo.entity.Article;
 import first_project.demo.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -66,7 +64,20 @@ public class ArticleController {
         //2 - 가져온 Article 묶음을 View로 전달한다.
         model.addAttribute("articleList", articleEntityList);
 
-        //3 - 뷰 페이지를 설계한다.
+        //3 - 뷰 페이지를 설계한다.  
         return "articles/index"; //articles/index.mustache파일안에 View페이지가 설정되도록 작성
     }
+
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        //수정할 데이터를 가져오기
+        Article articleEntity =  articleRepository.findById(id).orElse(null);
+
+        //모델에 데이터 등록!
+        model.addAttribute("article", articleEntity);
+
+        //뷰 페이지 설정
+        return "articles/edit";
+    }
 }
+
