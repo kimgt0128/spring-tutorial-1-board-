@@ -20,11 +20,12 @@ public class ArticleService {
     private ArticleRepository articleRepository;
 
     public List<Article> index() {
+        log.info(articleRepository.findAll().toString());
         return articleRepository.findAll();
     }
 
     public Article show(Long id) {
-        return articleRepository.findById(id).get();
+        return articleRepository.findById(id).orElse(null);
     }
 
     public Article create(ArticleForm dto) {
