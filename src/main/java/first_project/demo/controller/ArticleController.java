@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ public class ArticleController {
     //스프링부트가 자체적으로 객체를 만들어 주기 때문에 new 선언 없이 가능
     @Autowired //스프링부트가 미리 생성해놓은 객체를 가져다가 연결
     private ArticleRepository articleRepository;
+
     @GetMapping("/articles/new")
     public String newArticleForm() {
         return "articles/new";
@@ -78,6 +80,12 @@ public class ArticleController {
 
         //뷰 페이지 설정
         return "articles/edit";
+    }
+
+    @DeleteMapping("/articles/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        articleRepository.deleteById(id);
+        return "redirect:/articles";
     }
 }
 

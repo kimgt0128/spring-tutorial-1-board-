@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" version="2.2">
+
+    <named-native-query name="Comment.findByNickname"
+                        result-set-mapping="first_project.demo-entity.Comment">
+        <query>
+            <![CDATA[
+			SELECT
+			    *
+			FROM
+                comment
+            WHERE
+                nickname = :nickname
+        ]]>
+        </query>
+    </named-native-query>
+
+    <!-- Result Set Mapping -->
+    <sql-result-set-mapping name="CommentResult">
+        <entity-result entity-class="first_project.demo.entity.Comment">
+            <field-result name="id" column="id"/>
+            <field-result name="article" column="article_id"/>
+            <field-result name="nickname" column="nickname"/>
+            <field-result name="body" column="body"/>
+        </entity-result>
+    </sql-result-set-mapping>
+</entity-mappings>
+
+
+
+
