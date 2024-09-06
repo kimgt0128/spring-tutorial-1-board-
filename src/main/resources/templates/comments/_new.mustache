@@ -1,0 +1,55 @@
+<div class="card m-2" id="comments-new">
+    <div class="card-body">
+        <form>
+            <!-- 넥네임 입력 -->
+            <div class="mb-3">
+                <label class="form-label">닉네임</label>
+                <input class="form-control form-control-sm" id="new-comment-nickname">
+            </div>
+            <div class="mb-3">
+                <label class="form=label">댓글 내용</label>
+                <textarea class="form-control form-control-sm" rows="3" id="new-comment-body"></textarea>
+            </div>
+
+            <!-- 히든 인풋: 댓글에 id값을 자동으러 넣어주기 위함 -->
+            {{#article}}
+                <input type="hidden" id="new-comment-article-id" value="{{id}}">
+            {{/article}}
+            <button type="button" class="btn btn-outline-primary btn-sm" id="comment-create-btn">댓글 작성</button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+{
+    //댓글 생성 버튼을 변수화한 내용
+    const commentCreatBtn = document.querySelector("#comment-create-btn");
+
+    //버튼 클릭 이벤트를 감지
+    commentCreatBtn.addEventListener("click", function() {
+        console.log("버튼이 클릭되었습니다.");
+        const comment = {
+            nickname: document.querySelector("#new-comment-nickname").value,
+            body: document.querySelector("#new-comment-body").value,
+            article_id: document.querySelector("#new-comment-article-id").value
+        }
+        //댓글 객체 출력
+        console.log(comment)
+        //fetch() - Talend API 요청을 Javascript로 보내준다
+        const url = "/api/articles/" + comment.article_id + "/comments";
+        fetch(url, {
+            method: "post",
+            body: JSON.stringify(comment), //JS 객체를 JSON으로 변경하여 보냄
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            //http응답 코드에 따른 메시지 출력
+            const msg = (response.ok) ? "댓글이 등록되었습니다" : "댓글 등록 실패";
+            alert(msg);
+            window.location.reload();
+        });
+    } );
+}
+</script>
