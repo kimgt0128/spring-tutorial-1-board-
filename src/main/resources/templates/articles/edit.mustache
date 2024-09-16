@@ -1,6 +1,7 @@
 {{>layouts/header}}
 
 <form class="container" action="/articles/update" method="post">
+    <input name="id" type="hidden" value="{{article.id}}"/>
     <div class="mb-3">
         <label class="form-label">제목</label>
         <input type="text" class="form-control" name="title" value="{{article.title}}">
@@ -9,7 +10,7 @@
         <label class="form-label">내용</label>
         <textarea class="form-control" rows="3" name="content">{{article.content}}</textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="/articles{{article.id}}">Back</a>
+    <button type="submit" class="btn btn-primary">수정하기</button>
+    <a href="/articles{{article.id}}">돌아가기</a>
 </form>
 {{>layouts/footer}}

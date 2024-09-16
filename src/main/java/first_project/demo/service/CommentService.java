@@ -6,6 +6,7 @@ import first_project.demo.entity.Comment;
 import first_project.demo.repository.ArticleRepository;
 import first_project.demo.repository.CommentRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.hibernate.query.sqm.tree.SqmNode.log;
+
+@Slf4j
 @Service
 public class CommentService {
     @Autowired
@@ -36,6 +40,7 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("대상 게시글이 없습니다."));
         // 댓글 엔티티 생성
         Comment comment = Comment.createComment(commentDto, article);
+        log.info(comment.toString());
         // 댓글 엔티티를 DB로 저장
         Comment created = commentRepository.save(comment);
         //DTO로 변경하여 반환

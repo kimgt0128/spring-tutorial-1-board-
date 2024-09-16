@@ -4,13 +4,16 @@ import first_project.demo.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
+import java.util.Collections;
+
 //롬복을 통한 코드 리팩토링
 @AllArgsConstructor
-@ToString
+@ToString()
 public class ArticleForm {
+    private Long id;
     private String title;
     private String content;
     public Article toEntity() {
-        return new Article(null, title, content);
+        return new Article(id, title, content);
     }
 }

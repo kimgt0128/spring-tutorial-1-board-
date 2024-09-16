@@ -23,7 +23,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //DB가 id를 자동 생성
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST) // Changed to PERSIST to avoid unwanted cascading operations.
     @JoinColumn(name = "article_id")
     private Article article;
 

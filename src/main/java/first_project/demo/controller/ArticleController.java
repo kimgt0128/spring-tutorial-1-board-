@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -88,9 +89,28 @@ public class ArticleController {
         return "articles/edit";
     }
 
-    @DeleteMapping("/articles/{id}/delete")
-    public String delete(@PathVariable Long id) {
-        articleRepository.deleteById(id);
+    @PostMapping("/articles/update")
+    public String update(ArticleForm form) {
+        log.info(form.toString());
+
+        Article articleEntity = form.toEntity();
+
+        Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
+        if(target != null) {
+            articleRepository.save(articleEntity);
+        }
+        return "redirect:/articles/" + articleEntity.getId();
+    }
+
+    @GetMapping("/articles/{id}/delete")
+    public String delete(@PathVariable Long id,
+                         RedirectAttributes redirectAttributes) {
+        Article target = articleRepository.findById(id).orElse(null);
+        log.info(target.toString());
+        if(target != null) {
+            articleRepository.delete(target);
+            redirectAttributes.addFlashAttribute("msg", "삭제가 완료되었습니다.");
+        }
         return "redirect:/articles";
     }
 }

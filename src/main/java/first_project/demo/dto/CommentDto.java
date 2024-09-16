@@ -12,6 +12,8 @@ import lombok.ToString;
 @Getter
 @ToString
 public class CommentDto {
+
+    private Long id;
     @JsonProperty("article_id")
     private Long articleId;
     private String nickname;
@@ -20,6 +22,7 @@ public class CommentDto {
 
     public static CommentDto createCommentDto(Comment c) {
         return new CommentDto(
+                c.getId(),
                 c.getArticle().getId(),
                 c.getNickname(),
                 c.getBody()
